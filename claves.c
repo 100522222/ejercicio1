@@ -48,6 +48,8 @@ int exist(char *key) {
 
 int set_value(char *key, char *value1, int N_value2, float *V_value2, struct Paquete value3) {
     if (key == NULL || value1 == NULL || V_value2 == NULL) return -1;
+    if (strlen(key) > 255) return -1;
+    if (strlen(value1) > 255) return -1; 
     if (N_value2 < 1 || N_value2 > 32) return -1;
 
     pthread_mutex_lock(&mutex);
@@ -84,7 +86,9 @@ int set_value(char *key, char *value1, int N_value2, float *V_value2, struct Paq
 }
 
 int get_value(char *key, char *value1, int *N_value2, float *V_value2, struct Paquete *value3) {
-    if (key == NULL) return -1;
+    if (key == NULL || value1 == NULL || N_value2 == NULL || V_value2 == NULL || value3 == NULL) 
+        return -1;
+    if (strlen(key) > 255) return -1;   
 
     pthread_mutex_lock(&mutex);
     Nodo *actual = cabeza;

@@ -79,6 +79,9 @@ int destroy(void) {
 
 int set_value(char *key, char *value1, int N_value2, float *V_value2, struct Paquete value3) {
     if (key == NULL || value1 == NULL || V_value2 == NULL) return -1;
+    if (strlen(key) > 255) return -1;
+    if (strlen(value1) > 255) return -1;
+    if (N_value2 < 1 || N_value2 > 32) return -1;
     
     Mensaje msg;
     msg.op = OP_SET;
@@ -94,7 +97,10 @@ int set_value(char *key, char *value1, int N_value2, float *V_value2, struct Paq
 }
 
 int get_value(char *key, char *value1, int *N_value2, float *V_value2, struct Paquete *value3) {
-    if (key == NULL || value1 == NULL || V_value2 == NULL || value3 == NULL) return -1;
+    if (key == NULL || value1 == NULL || V_value2 == NULL || value3 == NULL) 
+        return -1;
+    
+    if (strlen(key) > 255) return -1;
 
     Mensaje msg;
     msg.op = OP_GET;
@@ -116,6 +122,9 @@ int get_value(char *key, char *value1, int *N_value2, float *V_value2, struct Pa
 
 int modify_value(char *key, char *value1, int N_value2, float *V_value2, struct Paquete value3) {
     if (key == NULL || value1 == NULL || V_value2 == NULL) return -1;
+    if (strlen(key) > 255) return -1;
+    if (strlen(value1) > 255) return -1;
+    if (N_value2 < 1 || N_value2 > 32) return -1;
 
     Mensaje msg;
     msg.op = OP_MODIFY;
@@ -132,6 +141,7 @@ int modify_value(char *key, char *value1, int N_value2, float *V_value2, struct 
 
 int delete_key(char *key) {
     if (key == NULL) return -1;
+    if (strlen(key) > 255) return -1;
     Mensaje msg;
     msg.op = OP_DELETE;
     strncpy(msg.key, key, 255);
@@ -140,6 +150,7 @@ int delete_key(char *key) {
 
 int exist(char *key) {
     if (key == NULL) return -1;
+    if (strlen(key) > 255) return -1;
     Mensaje msg;
     msg.op = OP_EXIST;
     strncpy(msg.key, key, 255);
