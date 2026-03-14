@@ -4,7 +4,7 @@ LDFLAGS = -L. -Wl,-rpath=./
 
 # Todos los objetivos a construir
 all: libclaves.so cliente_local servidor libproxyclaves.so cliente_distribuido \
-     cliente_local_test2 cliente_local_test3 cliente_local_test4 \
+     cliente_local_test2 cliente_local_test4 \
      cliente_distribuido_test2 cliente_distribuido_test3 cliente_distribuido_test4
 
 # ----------------------------------------------------
@@ -22,9 +22,6 @@ cliente_local: app-cliente-1.c libclaves.so
 # Clientes de prueba adicionales para versión local
 cliente_local_test2: app-cliente-2.c libclaves.so
 	$(CC) $(CFLAGS) -o cliente_local_test2 app-cliente-2.c $(LDFLAGS) -lclaves
-
-cliente_local_test3: app-cliente-3.c libclaves.so
-	$(CC) $(CFLAGS) -o cliente_local_test3 app-cliente-3.c $(LDFLAGS) -lclaves
 
 cliente_local_test4: app-cliente-4.c libclaves.so
 	$(CC) $(CFLAGS) -o cliente_local_test4 app-cliente-4.c $(LDFLAGS) -lclaves
@@ -60,7 +57,7 @@ cliente_distribuido_test4: app-cliente-4.c libproxyclaves.so
 # ----------------------------------------------------
 clean:
 	rm -f *.o *.so cliente_local servidor cliente_distribuido
-	rm -f cliente_local_test2 cliente_local_test3 cliente_local_test4
+	rm -f cliente_local_test2 cliente_local_test4
 	rm -f cliente_distribuido_test2 cliente_distribuido_test3 cliente_distribuido_test4
 
 # ----------------------------------------------------
@@ -85,7 +82,6 @@ help:
 	@echo "EJECUCIÓN - VERSIÓN LOCAL:"
 	@echo "  ./cliente_local        : Prueba básica"
 	@echo "  ./cliente_local_test2  : Prueba de casos de error"
-	@echo "  ./cliente_local_test3  : Prueba de concurrencia"
 	@echo "  ./cliente_local_test4  : Prueba de casos límite"
 	@echo ""
 	@echo "EJECUCIÓN - VERSIÓN DISTRIBUIDA:"
